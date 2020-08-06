@@ -7,7 +7,9 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux';
 
 const initialState = {
-  count: 0
+  count: 0,
+  boxArray: [],
+  backgroundColor: '',
 }
 
 function reducer(state = initialState, action) {
@@ -15,17 +17,27 @@ function reducer(state = initialState, action) {
 
   switch (action.type) {
     case "INCREMENT":
-      state.count = state.count + action.payload
+      state.count++
+      state.boxArray.push("")
       break
     case "DECREMENT":
-      state.count--
       if (state.count < 0) {
         state.count = 0
+      } else {
+        state.count--
+        state.boxArray.pop()   //remove the last element from array
       }
       break
     case "RESET":
+      state.boxArray = []
       state.count = 0
       break
+    case "COLOR":
+      state.backgroundColor = action.payload;
+      break;
+      case "SINGLECOLOR":
+        state.boxArray[action.payload.id] = action.payload.color
+        break
     default:
       console.log('test')
   }

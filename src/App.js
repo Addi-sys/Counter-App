@@ -7,6 +7,7 @@ function App() {
 
   const dispatch = useDispatch()
   const count = useSelector((state) => state.count)
+  const boxArray = useSelector(state => state.boxArray)
 
   const increment = () => {
     dispatch({ type: "INCREMENT", payload: 2 })
@@ -17,7 +18,7 @@ function App() {
   }
 
   const setCount = () => {
-    dispatch({type: "RESET"})
+    dispatch({ type: "RESET" })
   }
 
   return (
@@ -28,7 +29,13 @@ function App() {
       <button onClick={() => increment()}>increment</button>
       <button onClick={() => decrement()}>decrement</button>
       <button onClick={() => setCount(0)}>Reset</button>
-      <Box />
+      <input type="text" onChange={(e) => dispatch({ type: 'COLOR', payload: e.target.value })} />
+
+      {boxArray.map((_, index) => {
+        return <Box id={index} />
+      })}
+
+
     </div>
   );
 }
